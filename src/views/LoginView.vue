@@ -63,22 +63,16 @@
 import { ref } from 'vue'
 
 import IconSupport from '@/components/icons/IconSupport.vue'
-import { useRouter } from 'vue-router'
-import { useFetch } from '@/composables/fetch'
+import { useAuthStore } from '@/stores/auth-store'
 const isShowPassword = ref(false)
-const router = useRouter()
 const username = ref()
 const password = ref()
-const login = async () => {
-  const { data, error } = await useFetch('POST', '/auth/login', {
-    username: username.value,
-    password: password.value
-  })
 
-  if (data.errorCode || error) {
-    alert('unauthorized')
-    return
-  }
-  return router.push('/')
+const login = async () => {
+  const authStore = useAuthStore()
+
+  await authStore.login(username.value, password.value).catch((error) => {
+    console.error(error)
+  })
 }
 </script>

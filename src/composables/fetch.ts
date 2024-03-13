@@ -1,23 +1,29 @@
 import { ref } from 'vue'
+import type { ErrorResp } from '@/types/error'
+import { useAuthStore } from '@/stores/auth-store'
 
-export async function useFetch(
+export async function useFetch<T>(
   method: 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE',
   url: string,
   body?: Record<string, any>
 ) {
-  const data = ref<any>(null)
+  const data = ref<T & ErrorResp>()
   const error = ref<any>(null)
+  const auth = useAuthStore()
 
-  const requestOptions = {
+  const requestOptions: RequestInit = {
     method,
-    headers: { 'Content-Type': 'application/json' },
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${auth.user?.token}`
+    },
     body: body ? JSON.stringify(body) : undefined
   }
-
-  await fetch(`${import.meta.env.VITE_API_URL}${url}`, requestOptions)
-    .then((res) => res.json())
-    .then((json) => (data.value = json))
-    .catch((err) => (error.value = err))
-
+  try {
+    const res = await fetch(`${import.meta.env.VITE_API_URL}${url}`, requestOptions)
+    data.value = await res.json()
+  } catch (err) {
+    error.value = err
+  }
   return { data: data.value, error: error.value }
 }

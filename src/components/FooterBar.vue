@@ -2,32 +2,75 @@
   <footer
     class="h-[70px] w-full absolute bottom-0 bg-white p-2 text-base grid justify-items-center content-center grid-cols-5 gap-3"
   >
-    <div class="flex justify-center items-center flex-col gap-1">
-      <IconStock></IconStock>
-      <span class="text-xs">Stock</span>
-    </div>
-    <div class="flex justify-center items-center flex-col gap-1">
-      <IconProduction></IconProduction>
-      <span class="text-xs">Production</span>
-    </div>
-    <div class="flex justify-center items-center flex-col gap-1">
-      <IconBranch></IconBranch>
-      <span class="text-xs">Branch</span>
-    </div>
-    <div class="flex justify-center items-center flex-col gap-1">
-      <IconBagShop></IconBagShop>
-      <span class="text-xs">Order</span>
-    </div>
-    <div class="flex justify-center items-center flex-col gap-1">
-      <IconUser></IconUser>
-      <span class="text-xs">Profile</span>
-    </div>
+    <button>
+      <div
+        v-if="props.focus === 'My Stock'"
+        class="w-fit flex justify-center items-center flex-col gap-1"
+      >
+        <img class="h-[1.5em]" src="../assets/footer-icon/stock-red.png" />
+        <span class="text-xs text-red-500">Stock</span>
+      </div>
+      <div v-else class="w-fit flex justify-center items-center flex-col gap-1">
+        <img class="h-[1.5em]" src="../assets/footer-icon/stock.png" />
+        <span class="text-xs">Stock</span>
+      </div>
+    </button>
+    <button>
+      <div
+        v-if="props.focus === 'Production'"
+        class="w-fit flex justify-center items-center flex-col gap-1"
+      >
+        <img class="h-[1.5em]" src="../assets/footer-icon/book-red.png" />
+        <span class="text-xs text-red-500">Production</span>
+      </div>
+      <div v-else class="w-fit flex justify-center items-center flex-col gap-1">
+        <img class="h-[1.5em]" src="../assets/footer-icon/book.png" />
+        <span class="text-xs">Production</span>
+      </div>
+    </button>
+    <button>
+      <div
+        v-if="props.focus === 'Our Branches'"
+        class="w-fit flex justify-center items-center flex-col gap-1"
+      >
+        <img class="h-[1.5em]" src="../assets/footer-icon/store-red.png" />
+        <span class="text-xs text-red-500">Branches</span>
+      </div>
+      <div v-else class="w-fit flex justify-center items-center flex-col gap-1">
+        <img class="h-[1.5em]" src="../assets/footer-icon/store.png" />
+        <span class="text-xs">Branches</span>
+      </div>
+    </button>
+    <button>
+      <div
+        v-if="props.focus === 'Orders'"
+        class="w-fit flex justify-center items-center flex-col gap-1"
+      >
+        <img class="h-[1.5em]" src="../assets/footer-icon/bag-red.png" />
+        <span class="text-xs text-red-500">Order</span>
+      </div>
+      <div v-else class="w-fit flex justify-center items-center flex-col gap-1">
+        <img class="h-[1.5em]" src="../assets/footer-icon/bag.png" />
+        <span class="text-xs">Order</span>
+      </div>
+    </button>
+    <button>
+      <div
+        v-if="props.focus === 'Profile'"
+        class="w-fit flex justify-center items-center flex-col gap-1"
+      >
+        <img class="h-[1.5em]" src="../assets/footer-icon/user-red.png" />
+        <span class="text-xs text-red-500">Profile</span>
+      </div>
+      <div v-else class="w-fit flex justify-center items-center flex-col gap-1">
+        <img class="h-[1.5em]" src="../assets/footer-icon/user.png" />
+        <span class="text-xs">Profile</span>
+      </div>
+    </button>
   </footer>
 </template>
 <script setup lang="ts">
-import IconStock from '../components/icons/IconStock.vue'
-import IconProduction from '../components/icons/IconProduction.vue'
-import IconBranch from '../components/icons/IconBranch.vue'
-import IconBagShop from '../components/icons/IconBagShop.vue'
-import IconUser from '../components/icons/IconUser.vue'
+const props = defineProps<{
+  focus: string
+}>()
 </script>

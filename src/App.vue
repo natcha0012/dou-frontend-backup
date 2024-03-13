@@ -8,11 +8,13 @@
       <RouterView />
     </div>
     <div v-else>
-      <div class="flex items-center h-[calc(100vh-140px)] p-8 bg-[--vt-c-white-soft]">
+      <div
+        class="flex relative border-none items-center h-[calc(100vh-140px)] p-8 bg-[--vt-c-white-soft]"
+      >
         <RouterView />
       </div>
 
-      <FooterBar></FooterBar>
+      <FooterBar :focus="title"></FooterBar>
     </div>
   </div>
 </template>
@@ -26,4 +28,3 @@ import { computed } from 'vue'
 const route = useRouter()
 const title = computed(() => route.currentRoute.value.name?.toString() ?? '')
 </script>
-./components/FooterBar.vue
