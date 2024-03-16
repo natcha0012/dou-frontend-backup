@@ -1,6 +1,6 @@
 <template>
   <footer
-    class="h-[70px] w-full absolute bottom-0 bg-white p-2 text-base grid justify-items-center content-center grid-cols-5 gap-3"
+    class="h-[70px] w-full fixed bottom-0 bg-white p-2 text-base grid justify-items-center content-center grid-cols-5 gap-3"
   >
     <button>
       <div

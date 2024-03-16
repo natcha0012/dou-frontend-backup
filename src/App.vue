@@ -3,14 +3,12 @@
     <NavBar :title="title"></NavBar>
     <div
       v-if="title === 'Login'"
-      class="flex items-center h-[calc(100vh-70px)] p-8 bg-[--vt-c-white-soft]"
+      class="flex items-center h-[calc(100vh-70px)] p-6 bg-[--vt-c-white-soft]"
     >
       <RouterView />
     </div>
     <div v-else>
-      <div
-        class="flex relative border-none items-center h-[calc(100vh-140px)] p-8 bg-[--vt-c-white-soft]"
-      >
+      <div class="flex relative border-none px-6 py-4 bg-[--vt-c-white-soft]">
         <RouterView />
       </div>
 

@@ -15,6 +15,11 @@ const router = createRouter({
       component: () => import('../views/StockView.vue')
     },
     {
+      path: '/production',
+      name: 'Production',
+      component: () => import('../views/ProductionView.vue')
+    },
+    {
       path: '/:chapters*',
       redirect: { name: 'My Stock' }
     }
