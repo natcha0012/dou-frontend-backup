@@ -7,7 +7,7 @@
       class="flex items-center gap-2 p-2 rounded-md bg-[--vt-primary-blue] text-white"
     >
       <div>edit</div>
-      <img class="w-[15px]" src="../assets/img-icons/edit-2.png" />
+      <img class="w-[15px]" src="../../assets/img-icons/edit-2.png" />
     </button>
     <button
       v-if="isEdit"
@@ -15,7 +15,7 @@
       @click="save()"
     >
       <div>save</div>
-      <img class="w-[15px]" src="../assets/img-icons/edit-2.png" />
+      <img class="w-[15px]" src="../../assets/img-icons/edit-2.png" />
     </button>
   </div>
   <!-- <div class="w-full mt-3 border-b border-gray-500"></div> -->
@@ -31,7 +31,7 @@
               :key="header"
               scope="col"
               class="py-3 px-1"
-              :class="{ 'pl-3': header === 'รายการ', 'pr-3': header === 'คงเหลือ' }"
+              :class="{ 'pl-2': header === 'รายการ', 'pr-2': header === 'คงเหลือ' }"
             >
               {{ header }}
             </th>
@@ -64,9 +64,8 @@
 import { useFetch } from '@/composables/fetch'
 import type { DailyStockReportType } from '@/types/stock'
 import { onMounted, ref, watch } from 'vue'
-import DatePicker from './DatePicker.vue'
+import DatePicker from '../DatePicker.vue'
 import { UseDate } from '@/composables/date'
-import { useAuthStore } from '@/stores/auth-store'
 
 const stockList = ref<DailyStockReportType[]>([])
 const headers = ['รายการ', '', '', 'Today', 'Out', 'คงเหลือ']
@@ -74,7 +73,7 @@ const editHeaders = ['รายการ', '', 'In', 'Today', 'Out', 'คงเ�
 const isEdit = ref(false)
 const date = ref('')
 const today = UseDate().value
-const auth = useAuthStore()
+
 onMounted(async () => {
   date.value = today
   await getStock(date.value)
@@ -89,7 +88,6 @@ const getStock = async (date: string) => {
 
   if (!data || data.errorCode || error) {
     alert('cannot get stock')
-    auth.logout()
     return
   } else {
     stockList.value = data
@@ -97,7 +95,6 @@ const getStock = async (date: string) => {
 }
 
 const addStock = async (productId: number, amount: string) => {
-  console.log('addstock => productId:', productId, ' amount:', amount)
   await useFetch('POST', '/stock', {
     masterId: 1,
     productId,
@@ -111,6 +108,6 @@ const save = async () => {
 }
 
 watch(date, async (newDate) => {
-  await getStock(newDate)
+  if (newDate !== today) await getStock(newDate)
 })
 </script>

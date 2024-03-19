@@ -2,7 +2,7 @@
   <footer
     class="h-[70px] w-full fixed bottom-0 bg-white p-2 text-base grid justify-items-center content-center grid-cols-5 gap-3"
   >
-    <button>
+    <RouterLink to="/stock">
       <div
         v-if="props.focus === 'My Stock'"
         class="w-fit flex justify-center items-center flex-col gap-1"
@@ -14,8 +14,8 @@
         <img class="h-[1.5em]" src="../assets/footer-icon/stock.png" />
         <span class="text-xs">Stock</span>
       </div>
-    </button>
-    <button>
+    </RouterLink>
+    <RouterLink to="/production">
       <div
         v-if="props.focus === 'Production'"
         class="w-fit flex justify-center items-center flex-col gap-1"
@@ -27,8 +27,8 @@
         <img class="h-[1.5em]" src="../assets/footer-icon/book.png" />
         <span class="text-xs">Production</span>
       </div>
-    </button>
-    <button>
+    </RouterLink>
+    <RouterLink to="/branchs">
       <div
         v-if="props.focus === 'Our Branches'"
         class="w-fit flex justify-center items-center flex-col gap-1"
@@ -40,8 +40,8 @@
         <img class="h-[1.5em]" src="../assets/footer-icon/store.png" />
         <span class="text-xs">Branches</span>
       </div>
-    </button>
-    <button>
+    </RouterLink>
+    <RouterLink to="/orders">
       <div
         v-if="props.focus === 'Orders'"
         class="w-fit flex justify-center items-center flex-col gap-1"
@@ -53,8 +53,8 @@
         <img class="h-[1.5em]" src="../assets/footer-icon/bag.png" />
         <span class="text-xs">Order</span>
       </div>
-    </button>
-    <button>
+    </RouterLink>
+    <RouterLink to="/profile">
       <div
         v-if="props.focus === 'Profile'"
         class="w-fit flex justify-center items-center flex-col gap-1"
@@ -66,7 +66,7 @@
         <img class="h-[1.5em]" src="../assets/footer-icon/user.png" />
         <span class="text-xs">Profile</span>
       </div>
-    </button>
+    </RouterLink>
   </footer>
 </template>
 <script setup lang="ts">

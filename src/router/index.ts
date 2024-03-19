@@ -20,6 +20,21 @@ const router = createRouter({
       component: () => import('../views/ProductionView.vue')
     },
     {
+      path: '/branchs',
+      name: 'Branchs',
+      component: () => import('../views/BranchView.vue')
+    },
+    {
+      path: '/orders',
+      name: 'Orders',
+      component: () => import('../views/OrderView.vue')
+    },
+    {
+      path: '/profile',
+      name: 'Profile',
+      component: () => import('../views/ProfileView.vue')
+    },
+    {
       path: '/:chapters*',
       redirect: { name: 'My Stock' }
     }

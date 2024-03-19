@@ -2,7 +2,6 @@ import { useFetch } from '@/composables/fetch'
 import router from '@/router'
 import type { UserResponse } from '@/types/user'
 import { defineStore } from 'pinia'
-import { useRouter } from 'vue-router'
 
 export const useAuthStore = defineStore({
   id: 'auth',
@@ -38,7 +37,6 @@ export const useAuthStore = defineStore({
       router.push(this.returnUrl || '/stock')
     },
     logout() {
-      const router = useRouter()
       this.user = null
       localStorage.removeItem('user')
       router.push('/login')
