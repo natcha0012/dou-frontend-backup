@@ -1,6 +1,6 @@
 <template>
   <div class="flex justify-end gap-3">
-    <DatePicker v-model="date"></DatePicker>
+    <DatePicker class="max-w-[145px]" v-model="date"></DatePicker>
     <button
       v-if="!isEdit && date == today"
       @click="isEdit = true"
@@ -80,7 +80,6 @@ onMounted(async () => {
 })
 
 const getStock = async (date: string) => {
-  console.log('getStock')
   const { data, error } = await useFetch<DailyStockReportType[]>('POST', '/stock/list-by-date', {
     branchMasterId: 1,
     date: date.replaceAll('-', '/')
