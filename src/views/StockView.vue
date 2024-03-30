@@ -11,7 +11,7 @@
       </li>
     </ul>
   </div>
-  <div class="mt-[70px] w-full h-full pb-[70px]">
+  <div class="mt-[70px] w-full h-full">
     <div v-if="currentTab === 1">
       <DailyStockReport></DailyStockReport>
     </div>

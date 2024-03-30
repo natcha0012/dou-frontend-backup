@@ -39,7 +39,28 @@
         v-model="endDate"
       ></DatePicker>
     </div>
-    <DonutChart></DonutChart>
+    <div class="w-full my-5 flex-col">
+      <div class="w-full flex justify-center items-center">
+        <DoughnutChart class="w-1/2 mb-10" :chartData="testData" :options="options" />
+      </div>
+      <div class="mx-5">
+        <div v-for="(item, index) of data" :key="index" class="mb-3 flex flex-row">
+          <div
+            class="w-5 h-5 mr-5 rounded-md"
+            :style="`background-color: ${item.backgroundColor}`"
+          ></div>
+          <div>{{ item.labels }}({{ item.percent }}%)</div>
+          <div class="grow text-end">{{ item.amount }}</div>
+        </div>
+        <div class="m-5">
+          <button
+            class="w-full h-10 rounded-full border-2 hover:bg-[--vt-primary-blue] hover:text-white hover:shadow-md text-[--vt-primary-blue] border-[--vt-primary-blue] text-center"
+          >
+            show all
+          </button>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 <script setup lang="ts">
@@ -48,14 +69,75 @@ import { UserRole } from '@/constant.ts/user.enum'
 import { useAuthStore } from '@/stores/auth-store'
 import type { BranchResp } from '@/types/branch'
 import DatePicker from '../components/DatePicker.vue'
-import { onMounted, ref } from 'vue'
-import DonutChart from '../components/DonutChart.vue'
+import { computed, onMounted, ref } from 'vue'
+import { DoughnutChart } from 'vue-chart-3'
+import { Chart, registerables } from 'chart.js'
+
+Chart.register(...registerables)
 
 const branches = ref<(BranchResp & { branchUrl: string })[]>([])
 const selectedBranch = ref(0)
 const { user } = useAuthStore()
 const startDate = ref('')
 const endDate = ref('')
+
+// const data = ref([30, 40, 60, 70, 5])
+const data = ref([
+  {
+    amount: 30,
+    labels: 'Paris',
+    backgroundColor: '#77CEFF',
+    percent: 40
+  },
+  {
+    amount: 40,
+    labels: 'Nîmes',
+    backgroundColor: '#0079AF',
+    percent: 40
+  },
+  {
+    amount: 60,
+    labels: 'Toulon',
+    backgroundColor: '#123E6B',
+    percent: 40
+  },
+  {
+    amount: 70,
+    labels: 'Perpignan',
+    backgroundColor: '#97B0C4',
+    percent: 40
+  },
+  {
+    amount: 5,
+    labels: 'Autre',
+    backgroundColor: '#A5C8ED',
+    percent: 40
+  },
+  {
+    amount: 60,
+    labels: 'Toulon2',
+    backgroundColor: '#123E6B',
+    percent: 40
+  }
+])
+const options = ref({
+  responsive: true,
+  plugins: {
+    legend: {
+      display: false
+    }
+  }
+})
+
+const testData = computed(() => ({
+  labels: data.value.map((d) => d.labels),
+  datasets: [
+    {
+      data: data.value.map((d) => d.amount),
+      backgroundColor: data.value.map((d) => d.backgroundColor)
+    }
+  ]
+}))
 
 onMounted(async () => {
   await getBranches()

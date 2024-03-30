@@ -8,7 +8,7 @@
       <RouterView />
     </div>
     <div v-else>
-      <div class="flex relative border-none px-6 py-4 bg-[--vt-c-white-soft]">
+      <div class="flex relative border-none px-6 pt-4 pb-[70px] bg-[--vt-c-white-soft]">
         <RouterView />
       </div>
 
