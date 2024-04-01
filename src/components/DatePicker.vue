@@ -4,6 +4,8 @@
     <input
       class="px-2 text-center"
       :value="modelValue"
+      :min="min ?? '2023-01-01'"
+      :max="max"
       type="date"
       @input="emit('update:modelValue', ($event.target as HTMLInputElement).value)"
     />
@@ -13,6 +15,8 @@
 interface IProps {
   modelValue?: string
   title?: string
+  min?: string
+  max?: string
 }
 const props = defineProps<IProps>()
 const emit = defineEmits(['update:modelValue'])

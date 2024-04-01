@@ -76,13 +76,12 @@ const today = UseDate().value
 
 onMounted(async () => {
   date.value = today
-  await getStock(date.value)
 })
 
 const getStock = async (date: string) => {
   const { data, error } = await useFetch<DailyStockReportType[]>('POST', '/stock/list-by-date', {
     branchMasterId: 1,
-    date: date.replaceAll('-', '/')
+    date
   })
 
   if (!data || data.errorCode || error) {
@@ -107,6 +106,6 @@ const save = async () => {
 }
 
 watch(date, async (newDate) => {
-  if (newDate !== today) await getStock(newDate)
+  await getStock(newDate)
 })
 </script>

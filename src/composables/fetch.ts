@@ -14,6 +14,7 @@ export async function useFetch<T>(
   const requestOptions: RequestInit = {
     method,
     headers: {
+      Accept: '*/*',
       'Content-Type': 'application/json',
       Authorization: `Bearer ${auth.user?.token}`
     },

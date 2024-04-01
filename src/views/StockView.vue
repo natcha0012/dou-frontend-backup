@@ -21,8 +21,8 @@
   </div>
 </template>
 <script setup lang="ts">
-import DailyStockReport from '@/components/Production/DailyStockReport.vue'
-import LimitStock from '@/components/Production/LimitStock.vue'
+import DailyStockReport from '@/components/Stock/DailyStockReport.vue'
+import LimitStock from '@/components/Stock/LimitStock.vue'
 import { ref } from 'vue'
 const currentTab = ref(1)
 const activeTab = 'inline-block pb-4 border-b-2 border-red-600 w-full'

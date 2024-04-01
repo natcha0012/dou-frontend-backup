@@ -16,14 +16,14 @@ export const useAuthStore = defineStore({
     async login(username: string, password: string) {
       console.log(username, password)
       const { data, error } = await useFetch<UserResponse>('POST', '/auth/login', {
-        username,
-        password
+        username: 'admin',
+        password: '123456'
       })
 
       console.log(data, error)
 
       if (data?.errorCode || error) {
-        alert('unauthorized')
+        alert(data)
         return
       }
 

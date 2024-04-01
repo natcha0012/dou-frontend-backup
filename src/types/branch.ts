@@ -3,3 +3,10 @@ export type BranchResp = {
   name: string
   branchMasterId: number
 }
+
+export type SoldProductResp = {
+  sold: string
+  productId: number
+  productName: string
+  percent: string
+}

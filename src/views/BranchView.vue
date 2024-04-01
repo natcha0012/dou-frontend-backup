@@ -19,7 +19,7 @@
     <div
       class="relative w-full px-2 py-3 rounded-lg border text-sm focus:border-blue-500 focus:ring-blue-500 bg-white"
     >
-      <select class="w-full" v-model="selectedBranch">
+      <select class="w-full" v-model="formData.branchId">
         <option selected :value="0">สาขาทั้งหมด</option>
         <option v-for="item in branches" :key="item.id" :value="item.id">
           {{ item.name }}
@@ -30,34 +30,58 @@
       <DatePicker
         style="width: calc(50% - 4px); font-size: 14px"
         title="From:"
-        v-model="startDate"
+        :max="formData.endDate || undefined"
+        v-model="formData.startDate"
       ></DatePicker>
 
       <DatePicker
         style="width: calc(50% - 4px); font-size: 14px"
         title="To:"
-        v-model="endDate"
+        :min="formData.startDate || undefined"
+        v-model="formData.endDate"
       ></DatePicker>
     </div>
     <div class="w-full my-5 flex-col">
       <div class="w-full flex justify-center items-center">
-        <DoughnutChart class="w-1/2 mb-10" :chartData="testData" :options="options" />
+        <DoughnutChart
+          v-if="bestSeller.length"
+          class="w-1/2 mb-10"
+          :chartData="chartData"
+          :options="options"
+        />
+        <div v-else>No Product Sold!!</div>
       </div>
       <div class="mx-5">
-        <div v-for="(item, index) of data" :key="index" class="mb-3 flex flex-row">
+        <div v-for="(item, index) of bestSeller" :key="index" class="mb-3 flex flex-row">
           <div
             class="w-5 h-5 mr-5 rounded-md"
-            :style="`background-color: ${item.backgroundColor}`"
+            :style="`background-color: ${backgroundColor[index]}`"
           ></div>
-          <div>{{ item.labels }}({{ item.percent }}%)</div>
-          <div class="grow text-end">{{ item.amount }}</div>
+          <div>{{ item.productName }} ({{ item.percent }}%)</div>
+          <div class="grow text-end">{{ item.sold }}</div>
         </div>
         <div class="m-5">
           <button
+            v-if="showAllProduct === false"
             class="w-full h-10 rounded-full border-2 hover:bg-[--vt-primary-blue] hover:text-white hover:shadow-md text-[--vt-primary-blue] border-[--vt-primary-blue] text-center"
+            @click="showAllProduct = true"
           >
             show all
           </button>
+        </div>
+        <div v-if="showAllProduct">
+          <div v-for="(item, index) of soldProducts" :key="index" class="mb-3 flex flex-row">
+            <div>{{ item.productName }} ({{ item.percent }}%)</div>
+            <div class="grow text-end">{{ item.sold }}</div>
+          </div>
+          <div class="m-5">
+            <button
+              class="w-full h-10 rounded-full border-2 hover:bg-[--vt-primary-blue] hover:text-white hover:shadow-md text-[--vt-primary-blue] border-[--vt-primary-blue] text-center"
+              @click="showAllProduct = false"
+            >
+              show less
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -67,59 +91,23 @@
 import { useFetch } from '@/composables/fetch'
 import { UserRole } from '@/constant.ts/user.enum'
 import { useAuthStore } from '@/stores/auth-store'
-import type { BranchResp } from '@/types/branch'
+import type { BranchResp, SoldProductResp } from '@/types/branch'
 import DatePicker from '../components/DatePicker.vue'
-import { computed, onMounted, ref } from 'vue'
+import { computed, onMounted, ref, watch } from 'vue'
 import { DoughnutChart } from 'vue-chart-3'
 import { Chart, registerables } from 'chart.js'
 
 Chart.register(...registerables)
 
 const branches = ref<(BranchResp & { branchUrl: string })[]>([])
-const selectedBranch = ref(0)
 const { user } = useAuthStore()
-const startDate = ref('')
-const endDate = ref('')
+const showAllProduct = ref(false)
 
-// const data = ref([30, 40, 60, 70, 5])
-const data = ref([
-  {
-    amount: 30,
-    labels: 'Paris',
-    backgroundColor: '#77CEFF',
-    percent: 40
-  },
-  {
-    amount: 40,
-    labels: 'Nîmes',
-    backgroundColor: '#0079AF',
-    percent: 40
-  },
-  {
-    amount: 60,
-    labels: 'Toulon',
-    backgroundColor: '#123E6B',
-    percent: 40
-  },
-  {
-    amount: 70,
-    labels: 'Perpignan',
-    backgroundColor: '#97B0C4',
-    percent: 40
-  },
-  {
-    amount: 5,
-    labels: 'Autre',
-    backgroundColor: '#A5C8ED',
-    percent: 40
-  },
-  {
-    amount: 60,
-    labels: 'Toulon2',
-    backgroundColor: '#123E6B',
-    percent: 40
-  }
-])
+const formData = ref({
+  branchId: 0,
+  startDate: '',
+  endDate: ''
+})
 const options = ref({
   responsive: true,
   plugins: {
@@ -129,18 +117,23 @@ const options = ref({
   }
 })
 
-const testData = computed(() => ({
-  labels: data.value.map((d) => d.labels),
+const bestSeller = ref<SoldProductResp[]>([])
+const soldProducts = ref<SoldProductResp[]>([])
+const backgroundColor = ['#77CEFF', '#0079AF', '#123E6B', '#97B0C4', '#A5C8ED']
+
+const chartData = computed(() => ({
+  labels: bestSeller.value.map((item) => item.productName),
   datasets: [
     {
-      data: data.value.map((d) => d.amount),
-      backgroundColor: data.value.map((d) => d.backgroundColor)
+      data: bestSeller.value.map((item) => Number(item.sold)),
+      backgroundColor
     }
   ]
 }))
 
 onMounted(async () => {
   await getBranches()
+  await getSoldProduct()
 })
 
 const getBranches = async () => {
@@ -169,4 +162,34 @@ const getBranches = async () => {
     })
   }
 }
+
+const getSoldProduct = async () => {
+  const { data, error } = await useFetch<SoldProductResp[]>(
+    'POST',
+    '/branch-products/sold-products-amount',
+    formData.value
+  )
+
+  if (!data || data.errorCode || error) {
+    alert('cannot get sell data')
+    return
+  }
+
+  if (data.length && data[0].sold !== '0') {
+    bestSeller.value = data.slice(0, 5)
+    soldProducts.value = data.slice(5)
+  } else {
+    bestSeller.value = []
+    soldProducts.value = data
+    showAllProduct.value = true
+  }
+}
+
+watch(
+  formData,
+  async () => {
+    await getSoldProduct()
+  },
+  { deep: true }
+)
 </script>
