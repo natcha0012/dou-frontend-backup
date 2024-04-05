@@ -18,7 +18,7 @@ interface IProps {
   min?: string
   max?: string
 }
-const props = defineProps<IProps>()
+defineProps<IProps>()
 const emit = defineEmits(['update:modelValue'])
 </script>
 

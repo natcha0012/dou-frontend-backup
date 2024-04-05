@@ -21,7 +21,7 @@ const router = createRouter({
     },
     {
       path: '/branchs',
-      name: 'Branchs',
+      name: 'Our Branches',
       component: () => import('../views/BranchView.vue')
     },
     {
