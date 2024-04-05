@@ -10,3 +10,13 @@ export type SoldProductResp = {
   productName: string
   percent: string
 }
+
+export type BranchMasterDetailResp = {
+  id: number
+  name: string
+  Branch: {
+    id: number
+    name: string
+    branchMasterId: number
+  }[]
+}

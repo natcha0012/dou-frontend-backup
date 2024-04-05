@@ -31,7 +31,7 @@
       :amount="orders?.success.length || 0"
     ></OrderTab>
   </div>
-  <div class="flex flex-col gap-2 h-[100vh]">
+  <div class="flex flex-col gap-2 min-h-[100vh]">
     <div v-if="tab === 'All' || tab === 'Issue'" class="flex flex-col gap-1">
       <OrderCard
         v-for="order of orders?.issue"

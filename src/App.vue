@@ -7,6 +7,10 @@
     >
       <RouterView />
     </div>
+    <div v-else-if="title === 'Profile'">
+      <RouterView />
+      <FooterBar :focus="title"></FooterBar>
+    </div>
     <div v-else>
       <div class="flex relative flex-col border-none px-6 pt-4 pb-[70px] bg-[--vt-c-white-soft]">
         <RouterView />
