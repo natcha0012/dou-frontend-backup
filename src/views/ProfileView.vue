@@ -14,7 +14,7 @@
       <div>Role: {{ userProfile?.role }}</div>
       <div>TelNo: {{ userProfile?.telNo || '-' }}</div>
     </div>
-    <RouterLink to="/"
+    <RouterLink to="/edit-profile"
       ><div class="text-sm underline underline-offset-4 text-[--vt-primary-blue]">
         Edit Profile
       </div></RouterLink
@@ -57,6 +57,7 @@
       </div>
     </div>
   </div>
+  <FooterBar focus="Profile"></FooterBar>
 </template>
 <script setup lang="ts">
 import { useFetch } from '@/composables/fetch'
@@ -68,6 +69,7 @@ import { RouterLink } from 'vue-router'
 import IconSupport from '@/components/icons/IconSupport.vue'
 import IconChevronRight from '@/components/icons/IconChevronRight.vue'
 import IconLogout from '@/components/icons/IconLogout.vue'
+import FooterBar from '@/components/FooterBar.vue'
 
 const authStore = useAuthStore()
 const branchUrl = ref(

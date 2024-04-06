@@ -101,6 +101,5 @@ const getOrderList = async () => {
     return
   }
   orders.value = data
-  console.log(orders.value)
 }
 </script>

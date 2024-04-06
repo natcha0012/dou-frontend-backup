@@ -35,6 +35,11 @@ const router = createRouter({
       component: () => import('../views/ProfileView.vue')
     },
     {
+      path: '/edit-profile',
+      name: 'Edit Profile',
+      component: () => import('../views/EditProfile.vue')
+    },
+    {
       path: '/:chapters*',
       redirect: { name: 'My Stock' }
     }
