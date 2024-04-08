@@ -47,9 +47,14 @@ const selectCard = () => {
     }
   }
 
-  if (props.status === OrderStatus.DELIVERING) {
+  if (
+    props.status === OrderStatus.DELIVERING ||
+    props.status === OrderStatus.SUCCESS ||
+    props.status === OrderStatus.DELIVERED
+  ) {
     router.push(`/orders/detail/${props.orderId}`)
   }
+
   return
 }
 </script>

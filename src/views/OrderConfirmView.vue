@@ -33,7 +33,7 @@
           <tbody>
             <tr v-for="(product, i2) in pdlist.products" :key="i2" class="bg-white border-b">
               <td>img</td>
-              <td class="w-[100px] text-left px-0">
+              <td class="w-[150px] text-left px-0">
                 {{ product.productName }}
               </td>
               <td>{{ product.amount }}</td>
