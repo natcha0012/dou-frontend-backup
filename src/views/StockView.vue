@@ -1,6 +1,6 @@
 <template>
   <div
-    class="absolute -top-1 flex items-end left-0 text-sm font-medium text-center text-white bg-[--vt-primary-blue] pb-5 w-full h-[70px]"
+    class="sticky top-0 -mx-6 -my-10 px-6 py-5 z-20 flex items-end text-sm font-medium text-center text-white bg-[--vt-primary-blue]"
   >
     <ul class="grid grid-flow-col-dense grid-cols-2 w-full pl-3 pr-3">
       <li @click="currentTab = 1">

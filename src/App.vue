@@ -27,5 +27,9 @@ import FooterBar from './components/FooterBar.vue'
 import { computed } from 'vue'
 
 const route = useRouter()
-const title = computed(() => route.currentRoute.value.name?.toString() ?? '')
+const title = computed(() => {
+  const routeName = route.currentRoute.value.name?.toString() ?? ''
+  if (routeName.includes('Orders')) return 'Orders'
+  return routeName
+})
 </script>

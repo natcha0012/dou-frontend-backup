@@ -26,8 +26,22 @@ const router = createRouter({
     },
     {
       path: '/orders',
-      name: 'Orders',
-      component: () => import('../views/OrderView.vue')
+      children: [
+        {
+          name: 'Orders',
+          path: '',
+          component: () => import('../views/OrderView.vue')
+        },
+        {
+          name: 'Orders Confirm',
+          path: 'confirm/:orderId',
+          component: () => import('../views/OrderConfirmView.vue')
+        },
+        {
+          path: 'detail/:orderId',
+          component: () => import('../views/OrderDetailView.vue')
+        }
+      ]
     },
     {
       path: '/profile',

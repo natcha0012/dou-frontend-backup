@@ -39,6 +39,7 @@
         :branch-name="order.branchName"
         :date="order.date"
         :status="order.status"
+        :orderId="order.orderId"
         color="red"
       ></OrderCard>
     </div>
@@ -49,6 +50,7 @@
         :branch-name="order.branchName"
         :date="order.date"
         :status="order.status"
+        :orderId="order.orderId"
         color="orange"
       ></OrderCard>
     </div>
@@ -59,6 +61,7 @@
         :branch-name="order.branchName"
         :date="order.date"
         :status="order.status"
+        :orderId="order.orderId"
         color="var(--vt-light-blue)"
       ></OrderCard>
     </div>
@@ -69,6 +72,7 @@
         :branch-name="order.branchName"
         :date="order.date"
         :status="order.status"
+        :orderId="order.orderId"
         color="var(--vt-success)"
       ></OrderCard>
     </div>

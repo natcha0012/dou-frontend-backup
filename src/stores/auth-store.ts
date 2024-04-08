@@ -1,4 +1,5 @@
 import { useFetch } from '@/composables/fetch'
+import { UserRole } from '@/constant.ts/user.enum'
 import router from '@/router'
 import type { UserResponse } from '@/types/user'
 import { defineStore } from 'pinia'
@@ -31,7 +32,11 @@ export const useAuthStore = defineStore({
       localStorage.setItem('user', JSON.stringify(data))
 
       // redirect to previous url or default to home page
-      router.push(this.returnUrl || '/stock')
+      if (this.user.role === UserRole.DELIVER) {
+        router.push('/orders')
+      } else {
+        router.push(this.returnUrl || '/stock')
+      }
     },
     logout() {
       this.user = null

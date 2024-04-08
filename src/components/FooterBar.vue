@@ -2,7 +2,7 @@
   <footer
     class="h-[70px] w-full fixed bottom-0 bg-white p-2 text-base grid justify-items-center content-center grid-cols-5 gap-3"
   >
-    <RouterLink to="/stock">
+    <RouterLink to="/stock" v-if="user?.role !== UserRole.DELIVER">
       <div
         v-if="props.focus === 'My Stock'"
         class="w-fit flex justify-center items-center flex-col gap-1"
@@ -15,7 +15,7 @@
         <span class="text-xs">Stock</span>
       </div>
     </RouterLink>
-    <RouterLink to="/production">
+    <RouterLink to="/production" v-if="user?.role !== UserRole.DELIVER">
       <div
         v-if="props.focus === 'Production'"
         class="w-fit flex justify-center items-center flex-col gap-1"
@@ -28,7 +28,7 @@
         <span class="text-xs">Production</span>
       </div>
     </RouterLink>
-    <RouterLink to="/branchs">
+    <RouterLink to="/branchs" v-if="user?.role !== UserRole.DELIVER">
       <div
         v-if="props.focus === 'Our Branches'"
         class="w-fit flex justify-center items-center flex-col gap-1"
@@ -70,6 +70,10 @@
   </footer>
 </template>
 <script setup lang="ts">
+import { UserRole } from '@/constant.ts/user.enum'
+import { useAuthStore } from '@/stores/auth-store'
+
+const { user } = useAuthStore()
 const props = defineProps<{
   focus: string
 }>()
