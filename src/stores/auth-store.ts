@@ -21,7 +21,7 @@ export const useAuthStore = defineStore({
       })
 
       if (data?.errorCode || error) {
-        alert(data)
+        alert(data?.msg)
         return
       }
 
@@ -30,6 +30,11 @@ export const useAuthStore = defineStore({
 
       // store user details and jwt in local storage to keep user logged in between page refreshes
       localStorage.setItem('user', JSON.stringify(data))
+
+      if (this.user.role === UserRole.STAFF) {
+        // TODO: redirect to staff url
+        return
+      }
 
       // redirect to previous url or default to home page
       if (this.user.role === UserRole.DELIVER) {
