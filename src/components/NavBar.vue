@@ -16,7 +16,7 @@
   </nav>
 </template>
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
+import { onMounted, ref, watch } from 'vue'
 import IconBack from './icons/IconBack.vue'
 import router from '@/router'
 const props = defineProps<{
@@ -32,4 +32,10 @@ onMounted(() => {
 const goBack = () => {
   router.go(-1)
 }
+watch(
+  () => props.name,
+  () => {
+    title.value = props.name.includes('Orders') ? 'Orders' : props.name
+  }
+)
 </script>

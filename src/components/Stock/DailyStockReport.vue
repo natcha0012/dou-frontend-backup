@@ -47,7 +47,9 @@
               <input
                 v-if="isEdit"
                 type="number"
-                @keyup.enter="addStock(product.productId, $event.srcElement?.value ?? '')"
+                @keyup.enter="
+                  addStock(product.productId, ($event.target as HTMLInputElement).value ?? '')
+                "
                 class="w-[40px] p-1 border rounded-md"
               />
             </td>
