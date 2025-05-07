@@ -1,5 +1,5 @@
 import { useFetch } from '@/composables/fetch'
-import { UserRole } from '@/constant.ts/user.enum'
+import { UserRole } from '@/constants/user.enum'
 import router from '@/router'
 import type { UserResponse } from '@/types/user'
 import { defineStore } from 'pinia'

@@ -1,19 +1,12 @@
 <template>
   <div class="flex justify-end gap-3">
     <DatePicker class="max-w-[145px]" v-model="date"></DatePicker>
-    <button
-      v-if="!isEdit && date == today"
-      @click="isEdit = true"
-      class="flex items-center gap-2 p-2 rounded-md bg-[--vt-primary-blue] text-white"
-    >
+    <button v-if="!isEdit && date == today" @click="isEdit = true"
+      class="flex items-center gap-2 p-2 rounded-md bg-[--vt-primary-blue] text-white">
       <div>edit</div>
       <img class="w-[15px]" src="../../assets/img-icons/edit-2.png" />
     </button>
-    <button
-      v-if="isEdit"
-      class="flex items-center gap-2 p-2 rounded-md bg-green-500 text-white"
-      @click="save()"
-    >
+    <button v-if="isEdit" class="flex items-center gap-2 p-2 rounded-md bg-green-500 text-white" @click="save()">
       <div>save</div>
       <img class="w-[15px]" src="../../assets/img-icons/edit-2.png" />
     </button>
@@ -26,13 +19,8 @@
       <table class="w-full text-sm text-center">
         <thead class="text-xs">
           <tr class="px-4">
-            <th
-              v-for="header in isEdit ? editHeaders : headers"
-              :key="header"
-              scope="col"
-              class="py-3 px-1"
-              :class="{ 'pl-2': header === 'รายการ', 'pr-2': header === 'คงเหลือ' }"
-            >
+            <th v-for="header in isEdit ? editHeaders : headers" :key="header" scope="col" class="py-3 px-1"
+              :class="{ 'pl-2': header === 'รายการ', 'pr-2': header === 'คงเหลือ' }">
               {{ header }}
             </th>
           </tr>
@@ -44,14 +32,9 @@
               {{ product.productName }}
             </td>
             <td class="w-[50px] py-1">
-              <input
-                v-if="isEdit"
-                type="number"
-                @keyup.enter="
-                  addStock(product.productId, ($event.target as HTMLInputElement).value ?? '')
-                "
-                class="w-[40px] p-1 border rounded-md"
-              />
+              <input v-if="isEdit" type="number" @keyup.enter="
+                addStock(product.productId, ($event.target as HTMLInputElement).value ?? '')
+                " class="w-[40px] p-1 border rounded-md" />
             </td>
             <td>{{ product.totalIn }}</td>
             <td>{{ product.totalOut }}</td>

@@ -1,4 +1,4 @@
-import type { UserRole } from '@/constant.ts/user.enum'
+import type { UserRole } from '@/constants/user.enum'
 
 export type UserResponse = {
   token: string

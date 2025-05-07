@@ -15,8 +15,8 @@
   </div>
 </template>
 <script setup lang="ts">
-import { OrderThaiStatus, OrderStatus } from '@/constant.ts/order.enum'
-import { UserRole } from '@/constant.ts/user.enum'
+import { OrderThaiStatus, OrderStatus } from '@/constants/order.enum'
+import { UserRole } from '@/constants/user.enum'
 import { useAuthStore } from '@/stores/auth-store'
 import { useRouter } from 'vue-router'
 const props = defineProps<{

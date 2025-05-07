@@ -1,4 +1,4 @@
-import type { OrderStatus } from '@/constant.ts/order.enum'
+import type { OrderStatus } from '@/constants/order.enum'
 
 export type ListOrderResponse = {
   all: OrderResponse[]
@@ -17,7 +17,7 @@ export type OrderResponse = {
 }
 
 export type GetOrderByIDResp = {
-  id: number
+  id: string
   balance: string
   branchId: number
   branchMasterId: number
@@ -26,17 +26,22 @@ export type GetOrderByIDResp = {
   updatedAt: string
   deliverId: number
   packingId: number
-  remark: string
-  status: OrderStatus
+  status: string
   orderDetail: { productType: string; products: ProductDetail[] }[]
-  spoiledProducts: ProductDetail[]
+  totalItems: number
 }
 
 export type ProductDetail = {
-  amount: number
-  balance: number
-  pricePerOne: number
   productId: number
   productName: string
-  confirm?: boolean
+  orderedAmount: number
+  actualAmount: number
+  remark: RemarkTooltip
+  pricePerOne: number
+  balance: number
+  confirm: boolean
+}
+export type RemarkTooltip = {
+  masterRemark?: string
+  branchRemark?: string
 }

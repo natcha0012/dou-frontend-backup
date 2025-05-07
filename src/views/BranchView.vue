@@ -89,7 +89,7 @@
 </template>
 <script setup lang="ts">
 import { useFetch } from '@/composables/fetch'
-import { UserRole } from '@/constant.ts/user.enum'
+import { UserRole } from '@/constants/user.enum'
 import { useAuthStore } from '@/stores/auth-store'
 import type { BranchResp, SoldProductResp } from '@/types/branch'
 import DatePicker from '../components/DatePicker.vue'
